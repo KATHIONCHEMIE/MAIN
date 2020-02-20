@@ -14,7 +14,7 @@
                 <xpath expr="//field[@name='payment_date']" position="before">
 					
 					<field name="w_tasa_id" domain="[('currency_id','=',currency_id),('name', '&lt;', current_date)]" options="{'no_open': True, 'no_create': True}" />
-					<field name="w_tasa" />
+					<field name="w_tasa" digits="[12, 6]"/>
 					
                 </xpath>
             </data>
