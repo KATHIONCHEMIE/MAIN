@@ -22,11 +22,12 @@ class AccountPayment(models.Model):
    
     @api.model
     def create(self, values):
-        CurrencyRate = self.env['res.currency.rate']
-        temporal =  self.env['rates.temp']
-        currency_object = CurrencyRate.search([('id', '=', values['w_tasa_id'])])
-        tasaant = currency_object.rate
-        temporal.create({'w_tasa_id': currency_object.id, 'w_tasanterior': tasaant, 'w_name': currency_object.name, 'w_company_id': currency_object.company_id})
+        if values.get('w_tasa_id',False):
+            CurrencyRate = self.env['res.currency.rate']
+            temporal =  self.env['rates.temp']
+            currency_object = CurrencyRate.search([('id', '=', values['w_tasa_id'])])
+            tasaant = currency_object.rate
+            temporal.create({'w_tasa_id': currency_object.id, 'w_tasanterior': tasaant, 'w_name': currency_object.name, 'w_company_id': currency_object.company_id})
         res = super(AccountPayment, self).create(values)
         return res
       
